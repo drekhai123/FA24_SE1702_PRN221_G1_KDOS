@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KDOS.Common", "KDOS.Common\KDOS.Common.csproj", "{1743A22E-F114-472F-8330-FD761A2E9948}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KDOS.Data", "KDOS.Data\KDOS.Data.csproj", "{D2C13BDF-9DD5-4207-9F9E-6E14DA52DD1A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1743A22E-F114-472F-8330-FD761A2E9948}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1743A22E-F114-472F-8330-FD761A2E9948}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1743A22E-F114-472F-8330-FD761A2E9948}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1743A22E-F114-472F-8330-FD761A2E9948}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2C13BDF-9DD5-4207-9F9E-6E14DA52DD1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2C13BDF-9DD5-4207-9F9E-6E14DA52DD1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2C13BDF-9DD5-4207-9F9E-6E14DA52DD1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2C13BDF-9DD5-4207-9F9E-6E14DA52DD1A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C751B94-9213-4646-A63A-E984E8AFD976}
+	EndGlobalSection
+EndGlobal
