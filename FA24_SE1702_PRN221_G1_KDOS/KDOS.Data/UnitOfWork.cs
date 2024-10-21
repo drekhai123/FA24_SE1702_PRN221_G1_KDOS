@@ -11,5 +11,10 @@ namespace KDOS.Data
         {
             _unitOfWorkContext = new FA24_SE1702_211_G1_KDOSContext();
         }
+        public AccountRepository AccountRepository
+        {
+            get { return _accountRepository ??= new Repository.AccountRepository(_unitOfWorkContext); }
+        }
+        // This operator initializes _accountRepository only if it is currently null lazy initialization in a single line. 
     }
 }

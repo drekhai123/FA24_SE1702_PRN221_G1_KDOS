@@ -41,5 +41,12 @@
         public static string WARNING_NO_DATA_MSG = "No data";
 
         #endregion
+
+        #region Duplicate Account Warning
+
+        public static int WARNING_DUPLICATE_ACCOUNT_CODE = 2;       
+        public static string WARNING_DUPLICATE_ACCOUNT_MSG = "An account with this username already exists.";
+
+        #endregion
     }
 }
