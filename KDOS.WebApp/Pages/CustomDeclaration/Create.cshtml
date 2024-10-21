@@ -1,0 +1,96 @@
+﻿@page
+@using KDOS.Data.EnumData.CustomsDeclaration
+@model KDOS.WebApp.Pages.CustomDeclaration.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>CustomsDeclaration</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CustomsDeclaration.Sender" class="control-label"></label>
+                <input asp-for="CustomsDeclaration.Sender" class="form-control" readonly/>
+                <span asp-validation-for="CustomsDeclaration.Sender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomsDeclaration.Receiver" class="control-label"></label>
+                <input asp-for="CustomsDeclaration.Receiver" class="form-control" />
+                <span asp-validation-for="CustomsDeclaration.Receiver" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomsDeclaration.CustomsAgent" class="control-label">Customs Agent</label>
+                <input asp-for="CustomsDeclaration.CustomsAgent" class="form-control" />
+                <span asp-validation-for="CustomsDeclaration.CustomsAgent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomsDeclaration.Transportation" class="control-label"></label>
+                @* <select asp-for="CustomsDeclaration.Transportation" class="form-control" asp-items="Html.GetEnumSelectList<TransportationMode>()"></select> *@
+                <select asp-for="CustomsDeclaration.Transportation" class="form-control">
+                    @foreach (var transport in Enum.GetValues(typeof(TransportationMode)))
+                    {
+                        <option value="@transport">@transport</option>
+                    }
+                </select>
+                <span asp-validation-for="CustomsDeclaration.Transportation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomsDeclaration.InspectionDate" class="control-label">Inspection Date</label>
+                <input asp-for="CustomsDeclaration.InspectionDate" class="form-control" type="date" />
+                <span asp-validation-for="CustomsDeclaration.InspectionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomsDeclaration.ImportPermit" class="control-label">Import Permit</label>
+                @* <select asp-for="CustomsDeclaration.ImportPermit" class="form-control" asp-items="Html.GetEnumSelectList<ImportPermit>()"></select> *@
+                <select asp-for="CustomsDeclaration.ImportPermit" class="form-control">
+                    @foreach (var importPermit in Enum.GetValues(typeof(ImportPermit)))
+                    {
+                        <option value="@importPermit">@importPermit</option>
+                    }
+                </select>
+                <span asp-validation-for="CustomsDeclaration.ImportPermit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomsDeclaration.QuarantineRequired" class="control-label">Quarantine Required</label>
+                <div>
+                    <input type="radio" asp-for="CustomsDeclaration.QuarantineRequired" value="true" /> Yes
+                    <input type="radio" asp-for="CustomsDeclaration.QuarantineRequired" value="false" /> No
+                </div>
+                <span asp-validation-for="CustomsDeclaration.QuarantineRequired" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomsDeclaration.CustomsFee" class="control-label">Custom Fee</label>
+                <input asp-for="CustomsDeclaration.CustomsFee" class="form-control" type="number" min="0" />
+                <span asp-validation-for="CustomsDeclaration.CustomsFee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomsDeclaration.Status" class="control-label"></label>
+                @* <select asp-for="CustomsDeclaration.Status" class="form-control" asp-items="Html.GetEnumSelectList<Status>()"></select> *@
+                <select asp-for="CustomsDeclaration.Status" class="form-control">
+                    @foreach (var status in Enum.GetValues(typeof(Status)))
+                    {
+                        <option value="@status">@status</option>
+                    }
+                </select>
+                <span asp-validation-for="CustomsDeclaration.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="../Orders/Details" asp-route-id="@Model.Order.Id">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

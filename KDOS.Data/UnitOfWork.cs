@@ -1,20 +1,43 @@
-﻿using KDOS.Data.Models;
-using KDOS.Data.Repository;
+﻿using KDOS.Data.Data;
+using KDOS.Data.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace KDOS.Data
 {
     public class UnitOfWork
     {
-        private FA24_SE1702_211_G1_KDOSContext _unitOfWorkContext;
-        private AccountRepository _accountRepository;
+        private FA24_SE1702_PRN221_G1_KDOSContext _context;
+        private CustomerRepository _customerRepository;
+        private CustomsDeclarationRepository _customsDeclarationRepository;
+        private OrderRepository _orderRepository;
         public UnitOfWork()
         {
-            _unitOfWorkContext = new FA24_SE1702_211_G1_KDOSContext();
+            _context ??= new FA24_SE1702_PRN221_G1_KDOSContext();
         }
-        public AccountRepository AccountRepository
+        public CustomerRepository CustomerRepository
         {
-            get { return _accountRepository ??= new Repository.AccountRepository(_unitOfWorkContext); }
+            get
+            {
+                return _customerRepository ??= new CustomerRepository(_context);
+            }
         }
-        // This operator initializes _accountRepository only if it is currently null lazy initialization in a single line. 
+        public CustomsDeclarationRepository CustomsDeclarationRepository
+        {
+            get
+            {
+                return _customsDeclarationRepository ??= new CustomsDeclarationRepository(_context);
+            }
+        }
+        public OrderRepository OrderRepository
+        {
+            get
+            {
+                return _orderRepository ??= new OrderRepository(_context);
+            }
+        }
     }
 }

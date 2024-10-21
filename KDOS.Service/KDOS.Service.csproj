@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KDOS.Common\KDOS.Common.csproj" />
+    <ProjectReference Include="..\FA24_SE1702_PRN221_G1_KDOS\KDOS.Common.csproj" />
     <ProjectReference Include="..\KDOS.Data\KDOS.Data.csproj" />
   </ItemGroup>
 

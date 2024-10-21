@@ -1,11 +1,11 @@
 ﻿{
    "CodeGenerationMode": 4,
-   "ContextClassName": "FA24_SE1702_211_G1_KDOSContext",
+   "ContextClassName": "FA24_SE1702_PRN221_G1_KDOSContext",
    "ContextNamespace": null,
    "FilterSchemas": false,
-   "IncludeConnectionString": false,
+   "IncludeConnectionString": true,
    "ModelNamespace": null,
-   "OutputContextPath": null,
+   "OutputContextPath": "Data",
    "OutputPath": "Models",
    "PreserveCasingWithRegex": true,
    "ProjectRootNamespace": "KDOS.Data",
@@ -15,7 +15,51 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[Account]",
+         "Name": "[dbo].[Category]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Customers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CustomsDeclaration]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[FishHealth]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Notifications]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OrderDetails]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Orders]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Packing]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Payment]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PriceList]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Staff]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Transport]",
          "ObjectType": 0
       }
    ],
