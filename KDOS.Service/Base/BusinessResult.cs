@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace KDOS.Service.Base
 {
+    public interface IBusinessResult
+    {
+        int Status { get; set; }
+        string? Message { get; set; }
+        object? Data { get; set; }
+
+    }
+
     public class BusinessResult : IBusinessResult
     {
         public int Status { get; set; }

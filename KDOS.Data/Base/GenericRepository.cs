@@ -1,8 +1,9 @@
-﻿using KDOS.Data.Models;
+﻿using KDOS.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,14 +11,14 @@ namespace KDOS.Data.Base
 {
     public class GenericRepository<T> where T : class
     {
-        protected FA24_SE1702_211_G1_KDOSContext _context;
+        protected FA24_SE1702_PRN221_G1_KDOSContext _context;
 
         public GenericRepository()
         {
-            _context ??= new FA24_SE1702_211_G1_KDOSContext();
+            _context ??= new();
         }
 
-        public GenericRepository(FA24_SE1702_211_G1_KDOSContext context)
+        public GenericRepository(FA24_SE1702_PRN221_G1_KDOSContext context)
         {
             _context = context;
         }
@@ -29,6 +30,17 @@ namespace KDOS.Data.Base
         public async Task<List<T>> GetAllAsync()
         {
             return await _context.Set<T>().ToListAsync();
+        }
+        public async Task<List<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.ToListAsync();
         }
         public void Create(T entity)
         {
@@ -128,6 +140,6 @@ namespace KDOS.Data.Base
         {
             return await _context.SaveChangesAsync();
         }
+        #endregion Separating asign entity and save operators
     }
-    #endregion Separating asign entity and save operators  
 }
