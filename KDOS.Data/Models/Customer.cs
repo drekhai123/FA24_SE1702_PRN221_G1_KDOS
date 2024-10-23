@@ -19,6 +19,7 @@ public partial class Customer
 
     public string Password { get; set; }
 
+    public virtual ICollection<Account> Accounts { get; set; } = new List<Account>();
     public virtual ICollection<CustomsDeclaration> CustomsDeclarationReceiverCustomers { get; set; } = new List<CustomsDeclaration>();
 
     public virtual ICollection<CustomsDeclaration> CustomsDeclarationSenderCustomers { get; set; } = new List<CustomsDeclaration>();

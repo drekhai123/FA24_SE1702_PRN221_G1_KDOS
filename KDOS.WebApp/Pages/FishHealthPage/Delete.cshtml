@@ -1,0 +1,70 @@
+﻿@page
+@model KDOS.WebApp.Pages.FishHealthPage.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>FishHealth</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.Temperature)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.Temperature)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.OxygenLevel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.OxygenLevel)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.PHLevel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.PHLevel)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.AmmoniaLevel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.AmmoniaLevel)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.HealthCheckDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.HealthCheckDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.HealthStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.HealthStatus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.Notes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.Notes)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.OrderDetails)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.OrderDetails.OrderDetailsId)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="FishHealth.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

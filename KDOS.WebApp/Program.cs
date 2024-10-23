@@ -11,6 +11,7 @@ namespace KDOS.WebApp
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<ICustomsDeclarationService, CustomsDeclarationService>();
+            builder.Services.AddScoped<IFishHealthService, FishHealthService>();
 
             var app = builder.Build();
 

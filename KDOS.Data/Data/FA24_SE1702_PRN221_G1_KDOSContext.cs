@@ -18,7 +18,7 @@ public partial class FA24_SE1702_PRN221_G1_KDOSContext : DbContext
         : base(options)
     {
     }
-
+    public virtual DbSet<Account> Accounts { get; set; }
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Customer> Customers { get; set; }
@@ -59,6 +59,39 @@ public partial class FA24_SE1702_PRN221_G1_KDOSContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Account>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Account__3213E83F42AAB2AA");
+
+            entity.ToTable("Account");
+
+            entity.HasIndex(e => e.Username, "UQ__Account__F3DBC572EAD3DAF7").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.CustomerId).HasColumnName("customer_id");
+            entity.Property(e => e.Password)
+                .HasMaxLength(255)
+                .HasColumnName("password");
+            entity.Property(e => e.Role)
+                .HasMaxLength(50)
+                .HasColumnName("role");
+            entity.Property(e => e.StaffId).HasColumnName("staff_id");
+            entity.Property(e => e.Username)
+                .HasMaxLength(255)
+                .HasColumnName("username");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.Accounts)
+                .HasForeignKey(d => d.CustomerId)
+                .HasConstraintName("FK_Account_Customers");
+
+            entity.HasOne(d => d.Staff).WithMany(p => p.Accounts)
+                .HasForeignKey(d => d.StaffId)
+                .HasConstraintName("FK_Account_Staff");
+        });
         modelBuilder.Entity<Category>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Category__3213E83F209AB907");
