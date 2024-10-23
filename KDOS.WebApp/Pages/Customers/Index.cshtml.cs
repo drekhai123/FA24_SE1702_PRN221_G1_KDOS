@@ -11,7 +11,7 @@ using KDOS.Service;
 
 namespace KDOS.WebApp.Pages.Customers
 {
-    public class IndexModel(ICustomerService service) : PageModel
+   public class IndexModel(ICustomerService service) : PageModel
     {
         //private readonly KDOS.Data.Data.FA24_SE1702_PRN221_G1_KDOSContext _context;
         private readonly ICustomerService _customerService = service;

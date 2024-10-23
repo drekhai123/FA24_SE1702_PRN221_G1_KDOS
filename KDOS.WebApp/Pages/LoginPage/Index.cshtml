@@ -1,0 +1,116 @@
+﻿@page
+@model KDOS.WebApp.Pages.IndexModel
+@{
+}
+<style>
+    body {
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .login-container {
+        background-color: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        position: relative;
+    }
+
+    .login-header {
+        margin-bottom: 30px;
+    }
+
+        .login-header h2 {
+            font-size: 24px;
+            color: #333;
+            margin: 0; 
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border 0.3s;
+    }
+
+        .form-control:focus {
+            border-color: #6a11cb;
+            outline: none;
+        }
+
+    .btn-primary {
+        background-color: #6a11cb;
+        color: white;
+        padding: 12px;
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn-primary:hover {
+            background-color: #2575fc;
+        }
+
+    .login-footer {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #666;
+    }
+
+        .login-footer a {
+            color: #6a11cb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+            .login-footer a:hover {
+                text-decoration: underline;
+                color: #2575fc;
+            }
+
+   
+    .header-title {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 20px;
+        color: white;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); 
+    }
+</style>
+
+<div class="header-title">PRN221 - Fish Health Management</div> 
+
+<div class="login-container">
+    <div class="login-header">
+        <h2>Login to Your Account</h2>
+    </div>
+    @if (TempData["Message"] != null)
+    {
+        <div>@TempData["Message"]</div>
+    }
+    <form method="post">
+        <input type="text" name="Username" class="form-control" placeholder="Enter your username" required>
+        <input type="password" name="Password" class="form-control" placeholder="Enter your password" required>
+        <button type="submit" class="btn-primary">Login</button>
+    </form>
+    <div class="login-footer">
+        <p>Don't have an account? <a href="/Register">Sign up</a></p>
+        <p><a href="/ForgotPassword">Forgot your password?</a></p>
+    </div>
+</div>
