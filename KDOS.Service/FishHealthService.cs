@@ -16,6 +16,7 @@ namespace KDOS.Service
         Task<IBusinessResult> GetAll();
         Task<IBusinessResult> GetById(int id);
         Task<IBusinessResult> Save(FishHealth fishHealth);
+
         Task<IBusinessResult> DeleteById(int id);
         Task<IBusinessResult> GetAllOrderDetails();
         Task<IBusinessResult> GetAllOrderIds();
@@ -53,16 +54,14 @@ namespace KDOS.Service
         {
             try
             {
-                #region Quy tắc kinh doanh
-                // Bạn có thể muốn thêm một số quy tắc kinh doanh ở đây.
-                #endregion
+                #region Business Rule
 
-                // Kiểm tra xem thực thể fish health đã tồn tại hay chưa
-                var itemResult = await this.GetById(fishHealth.Id);
-                if (itemResult.Status == Const.SUCCESS_READ_CODE)
+                #endregion
+                int result = -1;
+                var item = await this.GetById(fishHealth.Id);
+                if (item.Status == Const.SUCCESS_READ_CODE)
                 {
-                    // Cập nhật thực thể đã tồn tại
-                    int result = await _unitOfWork.FishHealthRepository.UpdateAsync(fishHealth);
+                    result = await _unitOfWork.FishHealthRepository.UpdateAsync(fishHealth);
                     if (result > 0)
                         return new BusinessResult(Const.SUCCESS_UPDATE_CODE, Const.SUCCESS_UPDATE_MSG, fishHealth);
                     else
@@ -70,8 +69,7 @@ namespace KDOS.Service
                 }
                 else
                 {
-                    // Tạo thực thể mới
-                    int result = await _unitOfWork.FishHealthRepository.CreateAsync(fishHealth);
+                    result = await _unitOfWork.FishHealthRepository.CreateAsync(fishHealth);
                     if (result > 0)
                         return new BusinessResult(Const.SUCCESS_CREATE_CODE, Const.SUCCESS_CREATE_MSG, fishHealth);
                     else
@@ -80,8 +78,7 @@ namespace KDOS.Service
             }
             catch (Exception ex)
             {
-                // Ghi lại thông tin ngoại lệ nếu cần
-                return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
+                return new BusinessResult(Const.ERROR_EXCEPTION, ex.ToString());
             }
         }
 
