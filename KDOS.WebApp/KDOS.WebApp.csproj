@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KDOS.Service\KDOS.Service.csproj" />
+    <ProjectReference Include="..\KoiFishManagementService\KoiFishManagementService.csproj" />
   </ItemGroup>
 
 </Project>

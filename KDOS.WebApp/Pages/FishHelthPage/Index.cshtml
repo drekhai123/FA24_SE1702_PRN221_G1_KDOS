@@ -1,0 +1,111 @@
+﻿@page
+@model PRN221_KoiFishManagement.Pages.FishHelthPage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    string? role = HttpContext.Session.GetString("Role");
+}
+
+<h1>Fish Health</h1>
+
+@if (TempData["Message"] != null)
+{
+    <h2 class="text-info">@TempData["Message"]</h2>
+}
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<form method="get">
+    <div class="form-row">
+        <div class="col">
+            <input type="text" name="SearchTemperature" placeholder="Search Temperature" value="@Model.SearchTemperature" class="form-control" />
+        </div>
+        <div class="col">
+            <input type="text" name="SearchHealthStatus" placeholder="Search Health Status" value="@Model.SearchHealthStatus" class="form-control" />
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.FishHealth[0].OrderDetailsId)</th>
+            <th>@Html.DisplayNameFor(model => model.FishHealth[0].OrderId)</th>
+            <th>@Html.DisplayNameFor(model => model.FishHealth[0].Temperature)</th>
+            <th>@Html.DisplayNameFor(model => model.FishHealth[0].OxygenLevel)</th>
+            <th>@Html.DisplayNameFor(model => model.FishHealth[0].PHLevel)</th>
+            <th>@Html.DisplayNameFor(model => model.FishHealth[0].AmmoniaLevel)</th>
+            <th>@Html.DisplayNameFor(model => model.FishHealth[0].HealthCheckDate)</th>
+            <th>@Html.DisplayNameFor(model => model.FishHealth[0].HealthStatus)</th>
+            <th>@Html.DisplayNameFor(model => model.FishHealth[0].Notes)</th>
+            <th>@Html.DisplayNameFor(model => model.FishHealth[0].OrderDetails.Size)</th>
+            <th>@Html.DisplayNameFor(model => model.FishHealth[0].OrderDetails.Weight)</th>
+            <th>@Html.DisplayNameFor(model => model.FishHealth[0].OrderDetails.Quantity)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.FishHealth)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.OrderDetailsId)</td>
+                <td>@Html.DisplayFor(modelItem => item.OrderId)</td>
+                <td>@Html.DisplayFor(modelItem => item.Temperature)</td>
+                <td>@Html.DisplayFor(modelItem => item.OxygenLevel)</td>
+                <td>@Html.DisplayFor(modelItem => item.PHLevel)</td>
+                <td>@Html.DisplayFor(modelItem => item.AmmoniaLevel)</td>
+                <td>@Html.DisplayFor(modelItem => item.HealthCheckDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.HealthStatus)</td>
+                <td>@Html.DisplayFor(modelItem => item.Notes)</td>
+                <td>@Html.DisplayFor(modelItem => item.OrderDetails.Size)</td>
+                <td>@Html.DisplayFor(modelItem => item.OrderDetails.Weight)</td>
+                <td>@Html.DisplayFor(modelItem => item.OrderDetails.Quantity)</td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-between align-items-center my-3">
+    <div>
+        @if (Model.PageNumber > 1) 
+        {
+            <a class="btn btn-outline-secondary" asp-page="./Index" asp-route-PageNumber="@(Model.PageNumber - 1)">Previous</a>
+        }
+    </div>
+
+    <div>
+        @for (var i = 1; i <= Model.TotalPages; i++) 
+        {
+            if (i == Model.PageNumber)
+            {
+                <span class="btn btn-primary mx-1">@i</span>
+            }
+            else
+            {
+                <a class="btn btn-outline-primary mx-1" asp-page="./Index" asp-route-PageNumber="@i">@i</a>
+            }
+        }
+    </div>
+
+    <div>
+        @if (Model.PageNumber < Model.TotalPages) 
+        {
+            <a class="btn btn-outline-secondary" asp-page="./Index" asp-route-PageNumber="@(Model.PageNumber + 1)">Next</a>
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

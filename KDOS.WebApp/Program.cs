@@ -1,5 +1,5 @@
 using KDOS.Service;
-
+using KoiFishManagementService;
 namespace KDOS.WebApp
 {
     public class Program
@@ -8,6 +8,10 @@ namespace KDOS.WebApp
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddRazorPages();
+            builder.Services.AddDatabase();
+            builder.Services.AddUnitOfWork();
+            builder.Services.AddServices(builder.Configuration);
+            builder.Services.AddSession();
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<ICustomsDeclarationService, CustomsDeclarationService>();
@@ -24,6 +28,7 @@ namespace KDOS.WebApp
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 

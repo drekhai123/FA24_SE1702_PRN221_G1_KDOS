@@ -18,6 +18,7 @@ public partial class Staff
     public string PhoneNumber { get; set; }
 
     public string Password { get; set; }
+    public virtual ICollection<Account> Accounts { get; set; } = new List<Account>();
 
     public virtual ICollection<Packing> Packings { get; set; } = new List<Packing>();
 }

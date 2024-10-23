@@ -1,0 +1,87 @@
+﻿@page
+@model PRN221_KoiFishManagement.Pages.FishHelthPage.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>FishHealth</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.Temperature)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.Temperature)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.OxygenLevel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.OxygenLevel)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.PHLevel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.PHLevel)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.AmmoniaLevel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.AmmoniaLevel)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.HealthCheckDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.HealthCheckDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.HealthStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.HealthStatus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.Notes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.Notes)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.OrderDetails)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.OrderDetails.OrderDetailsId)
+        </dd>
+
+        <!-- Các trường bổ sung từ OrderDetail -->
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.OrderDetails.Size)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.OrderDetails.Size)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.OrderDetails.Weight)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.OrderDetails.Weight)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FishHealth.OrderDetails.Quantity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FishHealth.OrderDetails.Quantity)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.FishHealth.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
