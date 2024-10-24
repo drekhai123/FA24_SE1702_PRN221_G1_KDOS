@@ -1,0 +1,75 @@
+﻿@page
+@model KDOS.WebApp.Pages.FishHealthPage.CreateModel
+
+@{
+
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>FishHealth</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="FishHealth.OrderDetailsId" class="control-label"></label>
+                    <select asp-for="FishHealth.OrderDetailsId" class="form-control" asp-items="@(ViewData["OrderDetailsId"] as IEnumerable<SelectListItem>)"></select>
+                </div>
+            <div class="form-group">
+                <label asp-for="FishHealth.OrderId" class="control-label"></label>
+                <select asp-for="FishHealth.OrderId" class="form-control" asp-items="@(ViewData["Id"] as IEnumerable<SelectListItem>)"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FishHealth.Temperature" class="control-label"></label>
+                <input asp-for="FishHealth.Temperature" class="form-control" />
+                <span asp-validation-for="FishHealth.Temperature" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FishHealth.OxygenLevel" class="control-label"></label>
+                <input asp-for="FishHealth.OxygenLevel" class="form-control" />
+                <span asp-validation-for="FishHealth.OxygenLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FishHealth.PHLevel" class="control-label"></label>
+                <input asp-for="FishHealth.PHLevel" class="form-control" />
+                <span asp-validation-for="FishHealth.PHLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FishHealth.AmmoniaLevel" class="control-label"></label>
+                <input asp-for="FishHealth.AmmoniaLevel" class="form-control" />
+                <span asp-validation-for="FishHealth.AmmoniaLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FishHealth.HealthCheckDate" class="control-label"></label>
+                <input asp-for="FishHealth.HealthCheckDate" class="form-control" />
+                <span asp-validation-for="FishHealth.HealthCheckDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FishHealth.HealthStatus" class="control-label"></label>
+                <input asp-for="FishHealth.HealthStatus" class="form-control" />
+                <span asp-validation-for="FishHealth.HealthStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FishHealth.Notes" class="control-label"></label>
+                <input asp-for="FishHealth.Notes" class="form-control" />
+                <span asp-validation-for="FishHealth.Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

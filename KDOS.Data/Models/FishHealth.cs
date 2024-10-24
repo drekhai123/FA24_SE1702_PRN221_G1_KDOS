@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace KDOS.Data.Models;
 
@@ -9,8 +10,10 @@ public partial class FishHealth
 {
     public int Id { get; set; }
 
+    [Required]
     public int OrderDetailsId { get; set; }
 
+    public int? OrderId { get; set; }
     public decimal? Temperature { get; set; }
 
     public decimal? OxygenLevel { get; set; }
@@ -21,9 +24,10 @@ public partial class FishHealth
 
     public DateOnly HealthCheckDate { get; set; }
 
-    public string HealthStatus { get; set; }
+    public string? HealthStatus { get; set; }
 
-    public string Notes { get; set; }
+    public string? Notes { get; set; }
+    public virtual Order? Order { get; set; }
 
-    public virtual OrderDetail OrderDetails { get; set; }
+    public virtual OrderDetail? OrderDetails { get; set; }
 }
