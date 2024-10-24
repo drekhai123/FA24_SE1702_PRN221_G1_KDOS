@@ -7,31 +7,26 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using KDOS.Data.Data;
 using KDOS.Data.Models;
+using KDOS.Service;
 
 namespace KDOS.WebApp.Pages.Orders
 {
     public class DeleteModel : PageModel
     {
-        private readonly KDOS.Data.Data.FA24_SE1702_PRN221_G1_KDOSContext _context;
+        private readonly IOrderService _orderService;
 
-        public DeleteModel(KDOS.Data.Data.FA24_SE1702_PRN221_G1_KDOSContext context)
+
+        public DeleteModel(IOrderService orderService)
         {
-            _context = context;
+            _orderService = orderService;
         }
 
         [BindProperty]
         public Order Order { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Orders.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (order == null)
+            if ((await _orderService.GetById(id)).Data is not Order order)
             {
                 return NotFound();
             }
@@ -42,19 +37,13 @@ namespace KDOS.WebApp.Pages.Orders
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Orders.FindAsync(id);
-            if (order != null)
+            if ((await _orderService.GetById(id)).Data is Order order)
             {
                 Order = order;
-                _context.Orders.Remove(Order);
-                await _context.SaveChangesAsync();
+                await _orderService.DeleteById(id);
+                await _orderService.Save(order);
             }
 
             return RedirectToPage("./Index");

@@ -1,8 +1,8 @@
 ﻿@page
 @model KDOS.WebApp.Pages.Orders.CreateModel
-
+@using KDOS.Data.EnumData.Order
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Order";
 }
 
 <h1>Create</h1>
@@ -10,47 +10,72 @@
 <h4>Order</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
                 <label asp-for="Order.CustomerId" class="control-label"></label>
-                <select asp-for="Order.CustomerId" class ="form-control" asp-items="ViewBag.CustomerId"></select>
+                <select asp-for="Order.CustomerId" class="form-control" asp-items="@(ViewData["Id"] as IEnumerable<SelectListItem>)"></select>
             </div>
+
             <div class="form-group">
                 <label asp-for="Order.PriceId" class="control-label"></label>
-                <select asp-for="Order.PriceId" class ="form-control" asp-items="ViewBag.PriceId"></select>
+                <select asp-for="Order.PriceId" class="form-control" asp-items="@(ViewData["PriceId"] as IEnumerable<SelectListItem>)"></select>
             </div>
+
             <div class="form-group">
-                <label asp-for="Order.OrderDate" class="control-label"></label>
-                <input asp-for="Order.OrderDate" class="form-control" />
+                <label asp-for="Order.OrderDate" class="control-label">Order Date</label>
+                <input asp-for="Order.OrderDate" class="form-control" type="date" />
                 <span asp-validation-for="Order.OrderDate" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Order.OriginalLocation" class="control-label"></label>
+                <label asp-for="Order.OriginalLocation" class="control-label">Original Location</label>
                 <input asp-for="Order.OriginalLocation" class="form-control" />
                 <span asp-validation-for="Order.OriginalLocation" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Order.Destination" class="control-label"></label>
+                <label asp-for="Order.Destination" class="control-label">Destination</label>
                 <input asp-for="Order.Destination" class="form-control" />
                 <span asp-validation-for="Order.Destination" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Order.ShippingMethod" class="control-label"></label>
-                <input asp-for="Order.ShippingMethod" class="form-control" />
+                <label asp-for="Order.ShippingMethod" class="control-label">Shipping Method</label>
+                <select asp-for="Order.ShippingMethod" class="form-control">
+                    @foreach (var method in Enum.GetValues(typeof(KDOS.Data.EnumData.Order.ShippingMethod)))
+                    {
+                        <option value="@method">@method</option>
+                    }
+                </select>
                 <span asp-validation-for="Order.ShippingMethod" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Order.TotalCost" class="control-label"></label>
-                <input asp-for="Order.TotalCost" class="form-control" />
+                <label asp-for="Order.TotalCost" class="control-label">Total Cost</label>
+                <input asp-for="Order.TotalCost" class="form-control" type="number" step="0.01" />
                 <span asp-validation-for="Order.TotalCost" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Order.Status" class="control-label"></label>
-                <input asp-for="Order.Status" class="form-control" />
+                <label asp-for="Order.Status" class="control-label">Status</label>
+                <select asp-for="Order.Status" class="form-control">
+                    @foreach (var status in Enum.GetValues(typeof(KDOS.Data.EnumData.Order.Status)))
+                    {
+                        <option value="@status">@status</option>
+                    }
+                </select>
                 <span asp-validation-for="Order.Status" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="Order.CreatedAt" class="control-label">Created At</label>
+                <input asp-for="Order.CreatedAt" class="form-control" type="datetime-local" />
+                <span asp-validation-for="Order.CreatedAt" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -63,5 +88,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -8,36 +8,51 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using KDOS.Data.Data;
 using KDOS.Data.Models;
+using KDOS.Service;
 
 namespace KDOS.WebApp.Pages.Orders
 {
     public class EditModel : PageModel
     {
-        private readonly KDOS.Data.Data.FA24_SE1702_PRN221_G1_KDOSContext _context;
+        private readonly IOrderService _orderService;
 
-        public EditModel(KDOS.Data.Data.FA24_SE1702_PRN221_G1_KDOSContext context)
+        public EditModel(IOrderService orderService)
         {
-            _context = context;
+            _orderService = orderService;
         }
 
         [BindProperty]
         public Order Order { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order =  await _context.Orders.FirstOrDefaultAsync(m => m.Id == id);
+            var order = (await _orderService.GetById(id)).Data as Order;
             if (order == null)
             {
                 return NotFound();
             }
             Order = order;
-           ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "CustomerName");
-           ViewData["PriceId"] = new SelectList(_context.PriceLists, "Id", "Id");
+
+            var price = await _orderService.GetAllPriceIdAsync();
+            if (price == null || price.Data == null || !((IEnumerable<PriceList>)price.Data).Any())
+            {
+                throw new InvalidOperationException("PriceId data is missing.");
+            }
+            var priceList = (IEnumerable<PriceList>)price.Data;
+            var priceIds = priceList.Select(od => od.Id).ToList();
+            Console.WriteLine("OrderDetails IDs: " + string.Join(", ", priceIds));
+            ViewData["PriceId"] = new SelectList(priceList, "Id", "Id");
+
+            var customeridresult = await _orderService.GetAllCustomerIdAsync();
+            if (customeridresult == null || customeridresult.Data == null || !((IEnumerable<Customer>)customeridresult.Data).Any())
+            {
+                throw new InvalidOperationException("CustomerId data is missing.");
+            }
+            var customerList = (IEnumerable<Customer>)customeridresult.Data;
+            var customerIds = customerList.Select(o => o.Id).ToList();
+            Console.WriteLine("Order IDs: " + string.Join(", ", customerIds));
+
+            ViewData["Id"] = new SelectList(customerList, "Id", "Id");
             return Page();
         }
 
@@ -46,34 +61,38 @@ namespace KDOS.WebApp.Pages.Orders
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            {    
+                    var priceResult = await _orderService.GetAllPriceIdAsync();
+                    if (priceResult == null || priceResult.Data == null || !((IEnumerable<PriceList>)priceResult.Data).Any())
+                    {
+                        ViewData["PriceId"] = new List<SelectListItem>();
+                    }
+                    else
+                    {
+                        ViewData["PriceId"] = new SelectList((IEnumerable<PriceList>)priceResult.Data, "Id", "Id");
+                    }
 
-            _context.Attach(Order).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
+                    var customerIdsResult = await _orderService.GetAllCustomerIdAsync();
+                    if (customerIdsResult == null || customerIdsResult.Data == null || !((IEnumerable<Customer>)customerIdsResult.Data).Any())
+                    {
+                        ViewData["Id"] = new List<SelectListItem>();
+                    }
+                    else
+                    {
+                        ViewData["Id"] = new SelectList((IEnumerable<Customer>)customerIdsResult.Data, "Id", "Id");
+                    }
+                    return Page();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrderExists(Order.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _orderService.Save(Order);
+            TempData["Message"] = "Order Updated!";
 
             return RedirectToPage("./Index");
+
         }
 
-        private bool OrderExists(int id)
-        {
-            return _context.Orders.Any(e => e.Id == id);
-        }
+            
+
+       
     }
 }
