@@ -42,7 +42,7 @@ namespace KDOS.WebApp.Pages.FishHealthPage
             {
                 return Page();
             }
-            await _fishHealthService.Save(FishHealth);
+            await _fishHealthService.UpdateFishHealthAsync(FishHealth);
 
             return RedirectToPage("./Index");
         }

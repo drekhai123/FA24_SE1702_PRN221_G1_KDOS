@@ -22,7 +22,7 @@ public partial class FishHealth
 
     public decimal? AmmoniaLevel { get; set; }
 
-    public DateOnly HealthCheckDate { get; set; }
+    public DateTime HealthCheckDate { get; set; }
 
     public string? HealthStatus { get; set; }
 

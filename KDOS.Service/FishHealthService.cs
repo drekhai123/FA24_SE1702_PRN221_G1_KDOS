@@ -2,6 +2,7 @@
 using KDOS.Data;
 using KDOS.Data.Models;
 using KDOS.Service.Base;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace KDOS.Service
         Task<IBusinessResult> GetAll();
         Task<IBusinessResult> GetById(int id);
         Task<IBusinessResult> Save(FishHealth fishHealth);
-
+        Task<IBusinessResult> UpdateFishHealthAsync(FishHealth fishHealth);
         Task<IBusinessResult> DeleteById(int id);
         Task<IBusinessResult> GetAllOrderDetails();
         Task<IBusinessResult> GetAllOrderIds();
@@ -74,6 +75,46 @@ namespace KDOS.Service
                         return new BusinessResult(Const.SUCCESS_CREATE_CODE, Const.SUCCESS_CREATE_MSG, fishHealth);
                     else
                         return new BusinessResult(Const.FAIL_CREATE_CODE, Const.FAIL_CREATE_MSG);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.ERROR_EXCEPTION, ex.ToString());
+            }
+        }
+        public async Task<IBusinessResult> UpdateFishHealthAsync(FishHealth fishHealth)
+        {
+            try
+            {
+                #region Business Rule
+
+                // Add any business rules here if needed
+
+                #endregion
+
+                var existingFishHealth = await _unitOfWork.FishHealthRepository.GetByIdAsync(fishHealth.Id);
+
+                if (existingFishHealth != null)
+                {
+                    // Update the properties of the existing fish health record
+                    existingFishHealth.Temperature = fishHealth.Temperature;
+                    existingFishHealth.OxygenLevel = fishHealth.OxygenLevel;
+                    existingFishHealth.PHLevel = fishHealth.PHLevel;
+                    existingFishHealth.AmmoniaLevel = fishHealth.AmmoniaLevel;
+                    existingFishHealth.HealthCheckDate = fishHealth.HealthCheckDate;
+                    existingFishHealth.HealthStatus = fishHealth.HealthStatus;
+                    existingFishHealth.Notes = fishHealth.Notes;
+
+                    // Save changes asynchronously
+                    int result = await _unitOfWork.FishHealthRepository.UpdateAsync(existingFishHealth);
+                    if (result > 0)
+                        return new BusinessResult(Const.SUCCESS_UPDATE_CODE, Const.SUCCESS_UPDATE_MSG, existingFishHealth);
+                    else
+                        return new BusinessResult(Const.FAIL_UPDATE_CODE, Const.FAIL_UPDATE_MSG);
+                }
+                else
+                {
+                    return new BusinessResult(Const.FAIL_READ_CODE, Const.FAIL_READ_MSG);
                 }
             }
             catch (Exception ex)
