@@ -11,6 +11,7 @@ namespace KDOS.Data
         private OrderRepository _orderRepository;
         private FishHealthRepository _fishHealthRepository; 
         private AccountRepository _accountRepository; 
+        private PackingRepository _packingRepository;
 
         public UnitOfWork()
         {
@@ -53,6 +54,13 @@ namespace KDOS.Data
             get
             {
                 return _accountRepository ??= new AccountRepository(_context);
+            }
+        }
+        public PackingRepository PackingRepository
+        {
+            get
+            {
+                return _packingRepository ??= new PackingRepository(_context);
             }
         }
     }

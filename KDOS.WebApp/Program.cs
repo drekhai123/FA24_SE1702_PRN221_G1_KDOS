@@ -1,4 +1,7 @@
+using KDOS.Data;
+using KDOS.Data.Data;
 using KDOS.Service;
+using Microsoft.EntityFrameworkCore;
 
 namespace KDOS.WebApp
 {
@@ -8,10 +11,12 @@ namespace KDOS.WebApp
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddRazorPages();
+            builder.Services.AddScoped<UnitOfWork>();
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<ICustomsDeclarationService, CustomsDeclarationService>();
             builder.Services.AddScoped<IFishHealthService, FishHealthService>();
+            builder.Services.AddScoped<IPackingService, PackingService>();
 
             var app = builder.Build();
 

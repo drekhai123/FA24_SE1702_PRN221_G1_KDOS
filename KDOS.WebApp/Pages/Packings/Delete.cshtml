@@ -1,0 +1,13 @@
+﻿@page
+@model KDOS.WebApp.Pages.Packings.DeleteModel
+@{
+    ViewData["Title"] = "Delete Packing";
+}
+
+<h1>Delete Packing</h1>
+<p>Are you sure you want to delete this packing?</p>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+</form>

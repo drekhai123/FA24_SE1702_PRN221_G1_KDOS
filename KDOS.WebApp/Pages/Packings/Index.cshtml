@@ -1,0 +1,38 @@
+﻿@page
+@model KDOS.WebApp.Pages.Packings.IndexModel
+@{
+    ViewData["Title"] = "Packing List";
+}
+
+<h1>Packing List</h1>
+<a asp-page="./Create" class="btn btn-primary">Add New Packing</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Packer ID</th>
+            <th>Packing Date</th>
+            <th>Oxygen Level</th>
+            <th>Water Temperature</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Packings)
+        {
+            <tr>
+                <td>@item.OrderId</td>
+                <td>@item.PackerId</td>
+                <td>@item.PackingDate.ToShortDateString()</td>
+                <td>@item.OxygenLevel</td>
+                <td>@item.WaterTemperature</td>
+                <td>
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

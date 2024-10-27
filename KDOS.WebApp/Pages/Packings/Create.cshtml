@@ -1,0 +1,36 @@
+﻿@page
+@model KDOS.WebApp.Pages.Packings.CreateModel
+@{
+    ViewData["Title"] = "Create Packing";
+}
+
+<h1>Create Packing</h1>
+
+<form method="post">
+    <div>
+        <label>Order ID</label>
+        <input asp-for="Packing.OrderId" class="form-control" />
+    </div>
+    <div>
+        <label>Packer ID</label>
+        <input asp-for="Packing.PackerId" class="form-control" />
+    </div>
+    <div>
+        <label>Packing Date</label>
+        <input asp-for="Packing.PackingDate" class="form-control" type="date" />
+    </div>
+    <div>
+        <label>Oxygen Level</label>
+        <input asp-for="Packing.OxygenLevel" class="form-control" />
+    </div>
+    <div>
+        <label>Water Temperature</label>
+        <input asp-for="Packing.WaterTemperature" class="form-control" />
+    </div>
+    <div>
+        <label>Packing Notes</label>
+        <textarea asp-for="Packing.PackingNotes" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+</form>
