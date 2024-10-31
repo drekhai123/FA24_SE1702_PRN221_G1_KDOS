@@ -12,17 +12,21 @@
 }
 <form method="get">
     <div class="form-row">
-          <div class="col">
-              <input type="text" name="SearchShippingMethod" placeholder="Search ShippingMethod" value="@Model.SearchShippingMethod" class="form-control" />
-          </div>
+        <div class="col">
+            <input type="text" name="SearchShippingMethod" placeholder="Search ShippingMethod" value="@Model.SearchShippingMethod" class="form-control" />
+        </div>
         <div class="col">
             <input type="text" name="SearchStatus" placeholder="Search Status" value="@Model.SearchStatus" class="form-control" />
+        </div>
+        <div class="col">
+            <input type="text" name="SearchCustomerId" placeholder="Search Customer ID" value="@Model.SearchCustomerId" class="form-control" />
         </div>
         <div class="col">
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
     </div>
 </form>
+
 
 <p>
     <a asp-page="Create" class="btn btn-primary">
@@ -131,3 +135,39 @@
 }
     </tbody>
 </table>
+
+<div class="d-flex justify-content-between align-items-center my-3">
+    <div>
+        @if (Model.PageNumber > 1)
+        {
+            <a class="btn btn-outline-secondary" asp-page="./Index" asp-route-PageNumber="@(Model.PageNumber - 1)">Previous</a>
+        }
+    </div>
+
+    <div>
+        @for (var i = 1; i <= Model.TotalPages; i++)
+        {
+            if (i == Model.PageNumber)
+            {
+                <span class="btn btn-primary mx-1">@i</span>
+            }
+            else
+            {
+                <a class="btn btn-outline-primary mx-1" asp-page="./Index" asp-route-PageNumber="@i">@i</a>
+            }
+        }
+    </div>
+
+    <div>
+        @if (Model.PageNumber < Model.TotalPages)
+        {
+            <a class="btn btn-outline-secondary" asp-page="./Index" asp-route-PageNumber="@(Model.PageNumber + 1)">Next</a>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

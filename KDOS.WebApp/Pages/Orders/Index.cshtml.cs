@@ -24,6 +24,8 @@ namespace KDOS.WebApp.Pages.Orders
         [BindProperty(SupportsGet = true)]
         public string SearchStatus { get; set; } = string.Empty;
         [BindProperty(SupportsGet = true)]
+        public string SearchCustomerId { get; set; } = string.Empty;
+        [BindProperty(SupportsGet = true)]
         public int PageNumber { get; set; } = 1;
 
         public int TotalPages { get; set; }
@@ -43,17 +45,22 @@ namespace KDOS.WebApp.Pages.Orders
             var orderList = methodResult.Data as List<Order>;
 
             // Apply search filtering based on method and  status
-            if (!string.IsNullOrEmpty(SearchShippingMethod) || !string.IsNullOrEmpty(SearchStatus))
+            if (!string.IsNullOrEmpty(SearchShippingMethod) ||
+        !string.IsNullOrEmpty(SearchStatus) ||
+        !string.IsNullOrEmpty(SearchCustomerId))
             {
                 orderList = orderList
                     .Where(fh =>
                         (string.IsNullOrEmpty(SearchShippingMethod) ||
                          fh.ShippingMethod.Contains(SearchShippingMethod, StringComparison.OrdinalIgnoreCase)) &&
                         (string.IsNullOrEmpty(SearchStatus) ||
-                         fh.Status.Contains(SearchStatus, StringComparison.OrdinalIgnoreCase))
+                         fh.Status.Contains(SearchStatus, StringComparison.OrdinalIgnoreCase)) &&
+                        (string.IsNullOrEmpty(SearchCustomerId) ||
+                         fh.CustomerId.ToString().Contains(SearchCustomerId))
                     )
                     .ToList(); // Materialize the filtered query into a list
             }
+
 
             // Calculate total pages for pagination
             TotalPages = (int)Math.Ceiling(orderList.Count / (double)PageSize);
